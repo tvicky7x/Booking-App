@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local Storage Practice</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid bg-black text-bg-dark p-3 mb-3">
+      <div class="container text-center">
+        <h1>Form Fillup</h1>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card card-body">
+        <h3>Booking Form</h3>
+        <form action="#" id="myform">
+          <div>
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" />
+          </div>
+          <div>
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" />
+          </div>
+          <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-dark">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      // submit event
+      document.getElementById("myform").addEventListener("submit", storedate);
+      // storing function
+      function storedate(e) {
+        e.preventDefault();
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let vname, vemail;
+        if (name === "" || name < 1) {
+          document.getElementById("name").style.backgroundColor = "#F8BEBE";
+        } else {
+          document.getElementById("name").style.backgroundColor = "white";
+          vname = name;
+        }
+        if (email === "" || email < 1) {
+          document.getElementById("email").style.backgroundColor = "#F8BEBE";
+        } else {
+          document.getElementById("email").style.backgroundColor = "white";
+          vemail = email;
+        }
+        if (vname && vemail) {
+          let userdetails = { name: vname, email: vemail };
+          localStorage.setItem("userdetails", JSON.stringify(userdetails));
+        }
+        let objUserDetails = JSON.parse(localStorage.getItem("userdetails"));
+      }
+    </script>
+  </body>
+</html>
