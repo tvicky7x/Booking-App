@@ -30,14 +30,21 @@
             <input type="email" class="form-control" id="email" />
           </div>
           <div class="d-grid mt-3">
-            <button type="submit" class="btn btn-dark">Submit</button>
+            <button type="submit" class="btn btn-dark" id="submit">
+              Submit
+            </button>
           </div>
         </form>
+      </div>
+      <div class="card card-body mt-3">
+        <h5>User Details</h5>
+        <ul class="list-group" id="user"></ul>
       </div>
     </div>
     <script>
       // submit event
       document.getElementById("myform").addEventListener("submit", storedate);
+      document.getElementById("submit").addEventListener("mouseout", clear);
       // storing function
       function storedate(e) {
         e.preventDefault();
@@ -57,10 +64,21 @@
           vemail = email;
         }
         if (vname && vemail) {
+          let li = document.createElement("li");
+          li.className = "list-group-item";
+          li.appendChild(document.createTextNode(vemail));
+          document.getElementById("user").insertBefore(li, null);
           let userdetails = { name: vname, email: vemail };
-          localStorage.setItem("userdetails", JSON.stringify(userdetails));
+          localStorage.setItem(
+            document.getElementById("user").lastElementChild.textContent,
+            JSON.stringify(userdetails)
+          );
         }
-        let objUserDetails = JSON.parse(localStorage.getItem("userdetails"));
+      }
+      // clear function
+      function clear(e) {
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
       }
     </script>
   </body>
