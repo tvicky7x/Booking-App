@@ -10,16 +10,20 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
   </head>
   <body>
     <div class="container-fluid bg-black text-bg-dark p-3 mb-3">
       <div class="container text-center">
-        <h1>Form Fillup</h1>
+        <h1>Booking App <i class="bi bi-calendar2-week"></i></h1>
       </div>
     </div>
     <div class="container">
       <div class="card card-body">
-        <h3>Booking Form</h3>
+        <h3>Booking Form <i class="bi bi-pencil-square"></i></h3>
         <form action="#" id="myform">
           <div>
             <label for="name" class="form-label">Name</label>
@@ -37,7 +41,7 @@
         </form>
       </div>
       <div class="card card-body mt-3">
-        <h5>User Details</h5>
+        <h5>Booking Queue <i class="bi bi-calendar-check"></i></h5>
         <ul class="list-group" id="user"></ul>
       </div>
     </div>
@@ -45,6 +49,7 @@
       // submit event
       document.getElementById("myform").addEventListener("submit", storedate);
       document.getElementById("submit").addEventListener("mouseout", clear);
+      document.getElementById("user").addEventListener("click", cleardata);
       // storing function
       function storedate(e) {
         e.preventDefault();
@@ -64,21 +69,38 @@
           vemail = email;
         }
         if (vname && vemail) {
+          // li adding to ul
           let li = document.createElement("li");
           li.className = "list-group-item";
-          li.appendChild(document.createTextNode(vemail));
+          li.id = vemail;
+          li.appendChild(document.createTextNode(`${vname} - ${vemail}`));
+          // delete btn
+          let del = document.createElement("button");
+          del.className = "btn btn-sm btn-dark fw-bold float-end delete";
+          del.appendChild(document.createTextNode("X"));
+          li.appendChild(del);
+
           document.getElementById("user").insertBefore(li, null);
+          // storing
           let userdetails = { name: vname, email: vemail };
           localStorage.setItem(
-            document.getElementById("user").lastElementChild.textContent,
+            document.createTextNode(vemail).textContent,
             JSON.stringify(userdetails)
           );
         }
       }
-      // clear function
+      // clear form function
       function clear(e) {
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
+      }
+      // clear data function
+      function cleardata(e) {
+        if (e.target.classList.contains("delete")) {
+          let li = e.target.parentNode;
+          document.getElementById("user").removeChild(li);
+          localStorage.removeItem(li.id);
+        }
       }
     </script>
   </body>
