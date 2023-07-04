@@ -53,7 +53,6 @@
     <script>
       // submit event
       document.getElementById("myform").addEventListener("submit", storedate);
-      document.getElementById("submit").addEventListener("mouseout", clear);
       document.getElementById("user").addEventListener("click", cleardata);
       document.getElementById("user").addEventListener("click", editdata);
       // storing function
@@ -101,12 +100,7 @@
         }
       }
       // clear form function
-      function clear(e) {
-        if (clearMouse) {
-          document.getElementById("name").value = "";
-          document.getElementById("email").value = "";
-        }
-      }
+
       // clear data function
       function cleardata(e) {
         if (e.target.classList.contains("delete")) {
