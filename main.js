@@ -3,13 +3,15 @@ let axiosBase = axios.create({
   baseURL: "https://crudcrud.com/api/4a9d370ddffa46d281684bef5cc9a398",
 });
 // getting data from crud
-axiosBase.get("/UserDetails").then((res) => {
-  console.log(res.data.length);
-  let n = res.data.length;
-  for (let i = 0; i < n; i++) {
-    makeList(res.data[i]);
-  }
+window.addEventListener("DOMContentLoaded", () => {
+  axiosBase.get("/UserDetails").then((res) => {
+    let n = res.data.length;
+    for (let i = 0; i < n; i++) {
+      makeList(res.data[i]);
+    }
+  });
 });
+
 // submit event
 document.getElementById("myform").addEventListener("submit", storeDate);
 document.getElementById("user").addEventListener("click", clearData);
